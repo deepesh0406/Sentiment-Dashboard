@@ -55,7 +55,8 @@ if uploaded_file:
     df = pd.read_csv(uploaded_file)
     st.success("File uploaded successfully!")
 else:
-    df = pd.read_csv(r"C:\\Users\\Mukesh Bhardwaj\\Desktop\\RealTime_Sentiment_Analysis_Project\\data\\test_with_predictions_and_emotions.csv")
+   df = pd.read_csv("data/test_with_predictions_and_emotions.csv")
+
 
 df.columns = df.columns.str.strip()
 
