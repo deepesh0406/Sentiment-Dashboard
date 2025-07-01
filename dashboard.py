@@ -89,28 +89,7 @@ with tab1:
     st.plotly_chart(fig1, use_container_width=True)
 
     # Sentiment trend over time
-    if "Time of Tweet" in df.columns:
-        st.markdown("###  Sentiment Trend Over Time")
-        time_data = df.copy()
-        time_data['Time of Tweet'] = pd.to_datetime(time_data['Time of Tweet'], format="%d/%m/%Y %H:%M", errors='coerce')
-        time_data = time_data.dropna(subset=['Time of Tweet'])
 
-        if not time_data.empty:
-            time_data['Hour'] = time_data['Time of Tweet'].dt.hour
-            chart_data = time_data.groupby(['Hour', 'Predicted_Sentiment']).size().reset_index(name='Count')
-
-            if not chart_data.empty:
-                alt_chart = alt.Chart(chart_data).mark_line(point=True).encode(
-                    x=alt.X('Hour:O', title='Hour of Day'),
-                    y=alt.Y('Count:Q', title='Tweet Count'),
-                    color=alt.Color('Predicted_Sentiment:N', title='Sentiment'),
-                    tooltip=['Hour', 'Predicted_Sentiment', 'Count']
-                ).properties(title=" Sentiment Trend Over Time")
-                st.altair_chart(alt_chart, use_container_width=True)
-            else:
-                st.warning("Not enough data to show sentiment trend.")
-        else:
-            st.warning("No valid timestamps found to plot sentiment trend.")
 
     # Sentiment by Country
     if "Country" in df.columns:
